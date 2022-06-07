@@ -60,7 +60,7 @@ const config: HardhatUserConfig = {
     },
   },
 };
-
+console.log('GAS REPORT ENABLED ' + config.gasReporter?.enabled);
 forkTasks;
 
 export default config;

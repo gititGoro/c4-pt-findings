@@ -24,9 +24,11 @@
     "run-fork": "wait-on tcp:8545 && yarn impersonate && yarn distribute && hardhat --network localhost fork:yield-source",
     "run-yield-source-fork": "rm -rf ./deployments/localhost && npm-run-all -p -r start-fork run-fork",
     "remove-logs": "yarn run hardhat remove-logs",
-    "test": "yarn clean && HIDE_DEPLOY_LOG=true OPTIMIZER_DISABLED=true hardhat test",
+    "gasPrepare":"yarn clean && HIDE_DEPLOY_LOG=true OPTIMIZER_DISABLED=true hardhat test && node cleanGas.js",
+    "gasCompare": "yarn gasPrepare && node gasSavingsCompare.js -w 1",
     "typechain": "typechain --target=ethers-v5 \"./abis/*.json\" --out-dir \"./types\"",
-    "prepack": "yarn compile"
+    "prepack": "yarn compile",
+    "reset":"git checkout -- contracts/AaveV3YieldSource.sol contracts/test/AaveV3YieldSourceHarness.sol test/AaveV3YieldSource.test.ts"
   },
   "dependencies": {
     "@aave/core-v3": "1.13.1",
